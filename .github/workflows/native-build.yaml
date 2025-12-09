@@ -40,7 +40,8 @@ jobs:
         run: |
           chmod +x mvnw
           ./mvnw clean package -Pnative -Dquarkus.native.container-build=true
-
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_MVN }}
       - name: Build and Push Multi-Arch Image
         uses: docker/build-push-action@v6
         with:
