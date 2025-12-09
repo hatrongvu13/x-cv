@@ -20,7 +20,7 @@ EOF
 WORKDIR /project
 COPY . /project
 
-RUN chmod +x mvnw
+RUN chmod +x ./mvnw
 RUN ./mvnw -Pnative -Dquarkus.native.container-build=true \
     clean package
 RUN rm -rf ~/.m2
