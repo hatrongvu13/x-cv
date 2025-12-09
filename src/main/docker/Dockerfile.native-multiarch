@@ -1,7 +1,25 @@
-FROM quay.io/quarkus/ubi-quarkus-native-image:latest AS build
+FROM quay.io/quarkus/ubi-quarkus-native-image:23.1.4-java21 AS build
+ARG GITHUB_TOKEN
+
+# cấu hình settings.xml để kéo lib từ GitHub Packages
+RUN mkdir -p ~/.m2 \
+ && echo "<settings>
+    <servers>
+      <server>
+        <id>github</id>
+        <username>token</username>
+        <password>${GITHUB_TOKEN}</password>
+      </server>
+    </servers>
+  </settings>" > ~/.m2/settings.xml
+
 WORKDIR /project
 COPY . /project
-RUN ./mvnw -Pnative -Dquarkus.native.container-build=true clean package
+
+RUN ./mvnw -Pnative -Dquarkus.native.container-build=true \
+    clean package
+
+# ---------------------------
 
 FROM registry.access.redhat.com/ubi9/ubi-minimal:9.6
 WORKDIR /work/
