@@ -124,7 +124,7 @@ jobs:
         run: |
           docker buildx build \
             --platform linux/arm64 \
-            -f Dockerfile.native \
+            -f src/main/docker/Dockerfile \
             --secret id=maven-user,env=MAVEN_USERNAME \
             --secret id=maven-pass,env=MAVEN_PASSWORD \
             -t ghcr.io/${{ github.repository }}:latest \
