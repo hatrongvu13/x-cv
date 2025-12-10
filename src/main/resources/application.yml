@@ -1,0 +1,23 @@
+quarkus:
+  grpc:
+    server:
+      port: 9000
+      enable-keep-alive: true
+
+  datasource:
+    db-kind: postgresql
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    reactive:
+      url: ${DB_URL:jdbc:postgresql://localhost:5432/cvdb}
+
+  hibernate-orm:
+    database:
+      scripts:
+        generation: true
+    log:
+      sql: true
+
+  log:
+    console:
+      format: "%d{HH:mm:ss} %-5p [%c{2.}] (%t) %s%e%n"
