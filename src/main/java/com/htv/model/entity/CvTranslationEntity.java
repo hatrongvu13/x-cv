@@ -2,7 +2,8 @@ package com.htv.model.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -10,7 +11,8 @@ import java.util.List;
 @Table(name = "cv_translations", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"cv_id", "lang_code"})
 })
-@Data
+@Setter
+@Getter
 public class CvTranslationEntity extends PanacheEntityBase {
 
     @Id

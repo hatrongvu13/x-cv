@@ -2,11 +2,13 @@ package com.htv.model.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "cv_languages")
-@Data
+@Getter
+@Setter
 public class CvLanguageEntity extends PanacheEntityBase {
 
     @Id

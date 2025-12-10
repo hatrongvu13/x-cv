@@ -1,56 +1,32 @@
 package com.htv.service;
-import com.google.protobuf.Empty;
-import com.htv.model.entity.CvEntity;
 import com.htv.proto.cv.*;
 import io.grpc.stub.StreamObserver;
 import io.quarkus.grpc.GrpcService;
-import io.smallrye.common.annotation.Blocking;
 
 @GrpcService
-public class CvServiceImpl extends CVServiceGrpc.CVServiceImplBase {
-
-    public CvServiceImpl() {
-        super();
-    }
-
-    @Blocking
+public class CvServiceImpl extends CvGrpcServiceGrpc.CvGrpcServiceImplBase {
     @Override
-    public void getCV(GetCVRequest request, StreamObserver<GetCVResponse> responseObserver) {
-        try {
-            CvEntity entity = CvEntity.find("FROM CvEntity c WHERE c.id = ?1", request.getCvId())
-                    .firstResult();
-
-            if (entity == null) {
-                responseObserver.onError(new RuntimeException("Not found"));
-                return;
-            }
-
-            GetCVResponse response = GetCVResponse.newBuilder().build();
-            responseObserver.onNext(response);
-            responseObserver.onCompleted();
-
-        } catch (Exception e) {
-            responseObserver.onError(e);
-        }
+    public void getCV(GetCvGrpcRequest request, StreamObserver<GetCvGrpcResponse> responseObserver) {
+        super.getCV(request, responseObserver);
     }
 
     @Override
-    public void createCV(CreateCVRequest request, StreamObserver<CV> responseObserver) {
+    public void createCV(CreateCVRequest request, StreamObserver<CvGrpc> responseObserver) {
         super.createCV(request, responseObserver);
     }
 
     @Override
-    public void updateCV(UpdateCVRequest request, StreamObserver<CV> responseObserver) {
+    public void updateCV(UpdateCVRequest request, StreamObserver<CvGrpc> responseObserver) {
         super.updateCV(request, responseObserver);
     }
 
     @Override
-    public void deleteCV(DeleteCVRequest request, StreamObserver<Empty> responseObserver) {
+    public void deleteCV(DeleteCVRequest request, StreamObserver<CvGrpc> responseObserver) {
         super.deleteCV(request, responseObserver);
     }
 
     @Override
-    public void listCVs(ListCVsRequest request, StreamObserver<ListCVsResponse> responseObserver) {
+    public void listCVs(ListCVsRequest request, StreamObserver<ListCvsGrpcResponse> responseObserver) {
         super.listCVs(request, responseObserver);
     }
 }

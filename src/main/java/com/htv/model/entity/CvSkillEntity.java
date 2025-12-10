@@ -2,9 +2,13 @@ package com.htv.model.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "cv_skills")
+@Getter
+@Setter
 public class CvSkillEntity extends PanacheEntityBase {
 
     @Id
