@@ -79,10 +79,11 @@ jobs:
           export DOCKER_BUILDKIT=1
 
           docker build \
+            -f src/main/docker/Dockerfile
             --secret id=maven-pass,env=MAVEN_PASSWORD \
             --secret id=maven-user,env=MAVEN_USERNAME \
             -t ghcr.io/${{ github.repository }}latest \
-            src/main/docker/Dockerfile
+            .
 
         env:
           MAVEN_USERNAME: github
