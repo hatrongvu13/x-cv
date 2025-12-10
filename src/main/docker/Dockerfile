@@ -30,8 +30,7 @@
 #ENTRYPOINT ["./application"]
 
 # syntax=docker/dockerfile:1.4
-#FROM quay.io/quarkus/ubi-quarkus-graalvm-builder-image:22.3-java17 AS build
-FROM quay.io/quarkus/ubi-quarkus-mandrel-builder-image:24.1-arm64 AS build
+FROM quay.io/quarkus/ubi-quarkus-graalvm-builder-image:22.3-java17 AS build
 
 WORKDIR /workspace
 COPY . .
