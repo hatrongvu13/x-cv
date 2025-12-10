@@ -1,4 +1,50 @@
 package com.htv.model.entity;
 
-public class CvEntity {
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.time.Instant;
+import java.util.List;
+
+@Entity
+@Table(name = "cvs")
+@Data
+public class CvEntity extends PanacheEntityBase {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long id;
+
+    @Column(name = "default_lang", nullable = false, length = 10)
+    public String defaultLang = "vi";
+
+    @Column(name = "is_active")
+    public Boolean isActive = true;
+
+    @Column(name = "created_at")
+    public Instant createdAt = Instant.now();
+
+    @Column(name = "updated_at")
+    public Instant updatedAt = Instant.now();
+
+    @OneToMany(
+            mappedBy = "cv",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    public List<CvTranslationEntity> translations;
+
+    @PrePersist
+    protected void onCreate() {
+        Instant now = Instant.now();
+        createdAt = now;
+        updatedAt = now;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = Instant.now();
+    }
 }

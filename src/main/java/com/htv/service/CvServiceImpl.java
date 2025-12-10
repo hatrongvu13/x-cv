@@ -1,49 +1,56 @@
 package com.htv.service;
 import com.google.protobuf.Empty;
+import com.htv.model.entity.CvEntity;
 import com.htv.proto.cv.*;
-import io.grpc.ServerServiceDefinition;
+import io.grpc.stub.StreamObserver;
 import io.quarkus.grpc.GrpcService;
-import io.smallrye.mutiny.Uni;
+import io.smallrye.common.annotation.Blocking;
 
 @GrpcService
-public class CvServiceImpl extends MutinyCVServiceGrpc.CVServiceImplBase {
+public class CvServiceImpl extends CVServiceGrpc.CVServiceImplBase {
 
     public CvServiceImpl() {
         super();
     }
 
+    @Blocking
     @Override
-    public MutinyCVServiceGrpc.CVServiceImplBase withCompression(String compression) {
-        return super.withCompression(compression);
+    public void getCV(GetCVRequest request, StreamObserver<GetCVResponse> responseObserver) {
+        try {
+            CvEntity entity = CvEntity.find("FROM CvEntity c WHERE c.id = ?1", request.getCvId())
+                    .firstResult();
+
+            if (entity == null) {
+                responseObserver.onError(new RuntimeException("Not found"));
+                return;
+            }
+
+            GetCVResponse response = GetCVResponse.newBuilder().build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            responseObserver.onError(e);
+        }
     }
 
     @Override
-    public Uni<GetCVResponse> getCV(GetCVRequest request) {
-        return super.getCV(request);
+    public void createCV(CreateCVRequest request, StreamObserver<CV> responseObserver) {
+        super.createCV(request, responseObserver);
     }
 
     @Override
-    public Uni<CV> createCV(CreateCVRequest request) {
-        return super.createCV(request);
+    public void updateCV(UpdateCVRequest request, StreamObserver<CV> responseObserver) {
+        super.updateCV(request, responseObserver);
     }
 
     @Override
-    public Uni<CV> updateCV(UpdateCVRequest request) {
-        return super.updateCV(request);
+    public void deleteCV(DeleteCVRequest request, StreamObserver<Empty> responseObserver) {
+        super.deleteCV(request, responseObserver);
     }
 
     @Override
-    public Uni<Empty> deleteCV(DeleteCVRequest request) {
-        return super.deleteCV(request);
-    }
-
-    @Override
-    public Uni<ListCVsResponse> listCVs(ListCVsRequest request) {
-        return super.listCVs(request);
-    }
-
-    @Override
-    public ServerServiceDefinition bindService() {
-        return super.bindService();
+    public void listCVs(ListCVsRequest request, StreamObserver<ListCVsResponse> responseObserver) {
+        super.listCVs(request, responseObserver);
     }
 }
