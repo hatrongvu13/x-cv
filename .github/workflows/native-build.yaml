@@ -82,7 +82,7 @@ jobs:
             --secret id=maven-pass,env=MAVEN_PASSWORD \
             --secret id=maven-user,env=MAVEN_USERNAME \
             -t ghcr.io/${{ github.repository }}latest \
-            .
+            src/main/docker/Dockerfile
 
         env:
           MAVEN_USERNAME: github
