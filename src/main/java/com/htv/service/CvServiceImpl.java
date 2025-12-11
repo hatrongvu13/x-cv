@@ -1,32 +1,34 @@
 package com.htv.service;
 import com.htv.proto.cv.*;
-import io.grpc.stub.StreamObserver;
 import io.quarkus.grpc.GrpcService;
+import io.smallrye.mutiny.Uni;
 
 @GrpcService
-public class CvServiceImpl extends CvGrpcServiceGrpc.CvGrpcServiceImplBase {
+public class CvServiceImpl extends MutinyCvGrpcServiceGrpc.CvGrpcServiceImplBase {
+
     @Override
-    public void getCV(GetCvGrpcRequest request, StreamObserver<GetCvGrpcResponse> responseObserver) {
-        super.getCV(request, responseObserver);
+    public Uni<GetCvGrpcResponse> getCV(GetCvGrpcRequest request) {
+        System.out.println("getCV");
+        return Uni.createFrom().item(GetCvGrpcResponse.newBuilder().build());
     }
 
     @Override
-    public void createCV(CreateCVRequest request, StreamObserver<CvGrpc> responseObserver) {
-        super.createCV(request, responseObserver);
+    public Uni<CvGrpc> createCV(CreateCVRequest request) {
+        return Uni.createFrom().item(CvGrpc.newBuilder().build());
     }
 
     @Override
-    public void updateCV(UpdateCVRequest request, StreamObserver<CvGrpc> responseObserver) {
-        super.updateCV(request, responseObserver);
+    public Uni<CvGrpc> updateCV(UpdateCVRequest request) {
+        return super.updateCV(request);
     }
 
     @Override
-    public void deleteCV(DeleteCVRequest request, StreamObserver<CvGrpc> responseObserver) {
-        super.deleteCV(request, responseObserver);
+    public Uni<CvGrpc> deleteCV(DeleteCVRequest request) {
+        return super.deleteCV(request);
     }
 
     @Override
-    public void listCVs(ListCVsRequest request, StreamObserver<ListCvsGrpcResponse> responseObserver) {
-        super.listCVs(request, responseObserver);
+    public Uni<ListCvsGrpcResponse> listCVs(ListCVsRequest request) {
+        return super.listCVs(request);
     }
 }

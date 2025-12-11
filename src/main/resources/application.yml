@@ -2,19 +2,13 @@ quarkus:
   grpc:
     server:
       port: 9000
-      enable-keep-alive: true
 
   datasource:
     db-kind: postgresql
-    jdbc:
-      url: jdbc:postgresql://${DB_HOST:192.168.1.20}:5432/cvdb
+#    jdbc:
+#      url: jdbc:postgresql://${DB_HOST:192.168.1.20}:5432/cvdb
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:root}
+    reactive:
+      url: postgresql://${DB_HOST:171.229.223.206}:5432/cvdb
 
-  hibernate-orm:
-    database:
-      generation: none
-
-  flyway:
-    enabled: true
-    migrate-at-start: true
