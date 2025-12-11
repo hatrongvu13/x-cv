@@ -1,4 +1,4 @@
-package com.htv.model.entity;
+package com.htv.domain.entity;
 
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 import jakarta.persistence.*;

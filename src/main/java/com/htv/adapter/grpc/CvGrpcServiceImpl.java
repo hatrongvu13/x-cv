@@ -1,4 +1,4 @@
-package com.htv.service.grpc;
+package com.htv.adapter.grpc;
 import com.htv.proto.cv.*;
 import io.quarkus.grpc.GrpcService;
 import io.smallrye.mutiny.Uni;

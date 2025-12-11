@@ -1,4 +1,4 @@
-package com.htv.model.entity;
+package com.htv.domain.entity;
 
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 import jakarta.persistence.*;
@@ -6,10 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "cv_languages")
+@Table(name = "cv_educations")
 @Getter
 @Setter
-public class CvLanguageEntity extends PanacheEntityBase {
+public class CvEducationEntity extends PanacheEntityBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +19,11 @@ public class CvLanguageEntity extends PanacheEntityBase {
     @JoinColumn(name = "translation_id", nullable = false)
     public CvTranslationEntity translation;
 
-    public String name;
-    public String level;
+    @Column(name = "sort_order")
+    public Integer sortOrder = 0;
+
+    public String school;
+    public String major;
+    public String duration;
+    public String gpa;
 }

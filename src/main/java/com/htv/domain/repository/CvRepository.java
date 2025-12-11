@@ -1,6 +1,6 @@
-package com.htv.model.repository;
+package com.htv.domain.repository;
 
-import com.htv.model.entity.CvEntity;
+import com.htv.domain.entity.CvEntity;
 import io.quarkus.hibernate.reactive.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
