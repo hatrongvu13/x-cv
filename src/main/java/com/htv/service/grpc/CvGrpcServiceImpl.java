@@ -1,10 +1,10 @@
-package com.htv.service;
+package com.htv.service.grpc;
 import com.htv.proto.cv.*;
 import io.quarkus.grpc.GrpcService;
 import io.smallrye.mutiny.Uni;
 
 @GrpcService
-public class CvServiceImpl extends MutinyCvGrpcServiceGrpc.CvGrpcServiceImplBase {
+public class CvGrpcServiceImpl extends MutinyCvGrpcServiceGrpc.CvGrpcServiceImplBase {
 
     @Override
     public Uni<GetCvGrpcResponse> getCV(GetCvGrpcRequest request) {

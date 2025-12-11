@@ -86,4 +86,70 @@ Create your first JPA entity
 
 [Related guide section...](https://quarkus.io/guides/hibernate-orm)
 
+```angular2html
+my-quarkus-grpc-service/
+├── pom.xml                          ← Quarkus BOM + plugin
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/company/myapp/
+│   │   │       ├── api/                      ← Proto + generated code (git ignore)
+│   │   │   │       │   └── grpc/
+│   │   │       │       ├── MyServiceGrpc.java
+│   │   │       │       └── proto/
+│   │   │       │           └── my-service.proto
+│   │   │       ├── application/              ← Config, exception mapper, health
+│   │   │       │   ├── config/
+│   │   │       │   ├── exception/
+│   │   │       │   └── health/
+│   │   │       ├── domain/                   ← Entity thuần (JPA + Panache)
+│   │   │       │   ├── model/
+│   │   │         │   └── User.java
+│   │   │       │   └── repository/
+│   │   │       │       └── UserRepository.java
+│   │   │       ├── usecase/                  ← Business logic (port)
+│   │   │       │   ├── port/
+│   │   │       │   │   └── UserServicePort.java
+│   │   │       │   └── impl/
+│   │   │       │       └── UserServiceImpl.java
+│   │   │       ├── adapter/
+│   │   │       │   ├── grpc/                 ← gRPC implementation (adapter)
+│   │   │       │   │   └── MyServiceGrpcImpl.java
+│   │   │       │   └── persistence/          ← JPA/Panache adapter
+│   │   │       │       └── UserRepositoryImpl.java
+│   │   │       ├── infrastructure/
+│   │   │           ├── security/
+│   │   │           │   ├── JwtAuthGrpcInterceptor.java
+│   │   │           │   └── TokenProvider.java
+│   │   │           └── grpc/
+│   │   │               └── GrpcServerConfig.java
+│   │   │       └── MyQuarkusApplication.java    ← @QuarkusMain (tùy chọn)
+│   │   ├── resources/
+│   │   │   ├── proto/                        ← COPY proto ở đây để Dev UI thấy
+│   │   │   │   └── my-service.proto
+│   │   │   ├── application.yml
+│   │   │   ├── application-dev.yml
+│   │   │   ├── application-prod.yml
+│   │   │   ├── keys/                         ← privateKey.pem, publicKey.pem (git ignore)
+│   │   │   ├── db/
+│   │   │   │   └── migration/
+│   │   │   │       ├── V1.0.0__create_user_table.sql
+│   │   │   │       └── V1.0.1__add_index.sql
+│   │   │   └── META-INF/resources/           ← nếu có OpenAPI UI, gRPC UI
+│   │   └── docker/
+│   │       └── Dockerfile
+│   │       └── Dockerfile.native
+│   └── test/
+│       ├── java/
+│       │   └── com/company/myapp/
+│       │       ├── grpc/
+│       │       │         └── MyServiceGrpcTest.java        ← @QuarkusTest + GrpcTestResource
+│       │       └── repository/
+│       │           └── UserRepositoryTest.java
+│       └── resources/
+│           └── application-test.yml
+├── proto/                                    ← Repo proto riêng (nếu tách module)
+└── README.md
+```
+
 
